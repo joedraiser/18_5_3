@@ -1,23 +1,29 @@
 #include <iostream>
 
-int optionsQntty(int n, int k)
+int optionsQntty(int n, int k=3)
 {
-    if (n == 1)
-        return 1;
-    else if (n == 2)
-        return 2;
-    else if (n == 3)
-        return 4;
-    else
-        return optionsQntty(n - 3) + optionsQntty(n - 2) + optionsQntty(n - 1);
+    int result = 0;
 
+    if (n <= k)
+    {
+        result = 1;
+        for (int i = 0; i < n-1; i++)
+        {
+            result *= 2;
+        }
+        return result;
+    }
+    else
+    {
+        for (int i = k; i > 0; i--)
+        {
+            result += optionsQntty(n - i, k);
+        }
+        return result;
+    }
 }
 
 int main()
 {
-    std::cout << "Input: ";
-    int n;
-    std::cin >> n;
-
-    std::cout << "Output: " << optionsQntty(n);
+    std::cout << optionsQntty(6,4);
 }
